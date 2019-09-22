@@ -54,9 +54,16 @@ describe('config', function() {
       expect(Q.config.get('yaml.nested.nested1.key')).to.eql('nestedValue')
     })
 
-    it('env variable overrides value', function() {
-      process.env.YAML_NESTED_NESTED_1_KEY = 'ValueFromEnv'
-      expect(Q.config.get('yaml.nested.nested1.key')).to.eql('ValueFromEnv')
+    describe('env vars', function() {
+      it('env variable overrides value', function() {
+        process.env.YAML_NESTED_NESTED_1_KEY = 'ValueFromEnv'
+        expect(Q.config.get('yaml.nested.nested1.key')).to.eql('ValueFromEnv')
+      })
+
+      it('probes path components', function() {
+        process.env.HIGHER_LEVEL = '{"hello": "hi"}'
+        expect(Q.config.get('higher.level.hello')).to.eql('hi')
+      })
     })
   })
 

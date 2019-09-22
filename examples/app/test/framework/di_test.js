@@ -87,7 +87,7 @@ describe('di', function() {
 
   it('registers destructuring', function() {
     container.register('dep', { a: 3 })
-    container.register('svc', ({ a } = dep) => a ** 3 ) /* eslint no-undef: 0 */
+    container.register('svc', ({ a } = dep) => a ** 3) /* eslint no-undef: 0 */
     expect(container.get('svc')).to.eql(27)
   })
 
