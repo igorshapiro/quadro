@@ -1,21 +1,21 @@
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Configuration](#configuration)
-	- [Directory layout](#directory-layout)
-		- [Excluding `local` configuration from version control](#excluding-local-configuration-from-version-control)
-	- [API](#api)
-		- [.get(path[, defaultValue])](#getpath-defaultvalue)
-		- [.registerConfigRoot(namespace, provider)](#registerconfigrootnamespace-provider)
-	- [Configuration from environment variables](#configuration-from-environment-variables)
-- [cfg.yml](#cfgyml)
-	- [Configuration REST API](#configuration-rest-api)
-		- [Get configuration](#get-configuration)
-		- [Set configuration](#set-configuration)
+  - [Directory layout](#directory-layout)
+    - [Excluding `local` configuration from version control](#excluding-local-configuration-from-version-control)
+  - [API](#api)
+    - [.get(path[, defaultValue])](#getpath-defaultvalue)
+    - [.registerConfigRoot(namespace, provider)](#registerconfigrootnamespace-provider)
+  - [Configuration from environment variables](#configuration-from-environment-variables)
+    - [JSON environment variables](#json-environment-variables)
+  - [Configuration REST API](#configuration-rest-api)
+    - [Get configuration](#get-configuration)
+    - [Set configuration](#set-configuration)
 - [Configuration providers](#configuration-providers)
-	- [Caching](#caching)
-	- [Built in configuration providers](#built-in-configuration-providers)
-		- [DynamoDB](#dynamodb)
-		- [MongoDB](#mongodb)
+  - [Caching](#caching)
+  - [Built in configuration providers](#built-in-configuration-providers)
+    - [DynamoDB](#dynamodb)
+    - [MongoDB](#mongodb)
 
 <!-- /TOC -->
 
@@ -136,6 +136,17 @@ will return `from_env` instead of `from_file`.
 
 *Note:* `cfg.key1` should be defined as `CFG_KEY_1` environment variables (number
 is separated with underscore)
+
+### JSON environment variables
+
+Quadro can probe environment variables for JSON objects, for example:
+
+```js
+config.get('some.nested.variable') // Returns undefined
+
+process.env.SOME_NESTED = '{"variable": "hello"}'
+config.get('some.nested.variable') // Returns 'hello'
+```
 
 ## Configuration REST API
 
